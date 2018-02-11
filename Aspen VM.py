@@ -1,17 +1,3 @@
-#Alright, finally started on the python VM for Aspen. it is the 8th of february (only 7 days til' my birthday!) and I am... pretty ready.
-# I didnt actually write out as much pre-planning as I usually do, that has me worried.
-#lmao python doesnt have switch statements -  so the solution is a little funky.
-#I always thought switch statements existed in python, I just never wanted to use them so I never found out they didn't exist.
-#anyways I've got a pretty solid foundation done, I'm gonna go take a shower, my eyes are really itchy and I smell bad.
-#yeah, I should've planned this out on paper. I'll do that in the morning.
-
-#came back, its just the next day, and I've finished iconst! thats where everything starts babyyy
-#I'm on a goddamn roll, all the arithmetic works smooth as hell
-#I might want to consider breaking the code up into separate files
-#maybe if I ever become a goddamned PUSSY I'll consider it
-
-
-
 class VM(): #Where the magic happens
     def __init__(self, args): #args is an array of: code, ip, sp, fp, data, datasize
         self.ip = args[1]
