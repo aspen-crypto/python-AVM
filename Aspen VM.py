@@ -6,7 +6,10 @@
 #anyway I have if statements now
 #branch if true and branch if false
 #pretty snazzy if I do say so myself
-
+#OOOO BABY
+#are those variables I see?
+#Memory? In the distance?
+#Why yes they are, young traveller.
 
 class VM():  # Where the magic happens
     def __init__(self, args):  # args is an array of: code, ip, sp, fp, data, datasize
@@ -98,6 +101,15 @@ class VM():  # Where the magic happens
             else:
                 self.ip += 1
 
+        def gStore():
+            self.ip += 1
+            addr = int(self.code[self.ip])
+            self.memory[addr] = self.stack[-1]
+
+        def gLoad():
+            self.ip += 1
+            addr = int(self.code[self.ip])
+            self.stack.append(self.memory[addr])
 
         decoder = {
             "HALT": halt,
@@ -115,6 +127,8 @@ class VM():  # Where the magic happens
             "IG": isGreaterThan,
             "BRT": branchIfTrue,
             "BRF": branchIfFalse,
+            "GSTORE": gStore,
+            "GLOAD": gLoad,
         }
 
         # Ending the operations list ====================
@@ -127,17 +141,17 @@ class VM():  # Where the magic happens
             self.ip += 1
 
             op = self.code[self.ip]
-            #print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n ---")
+            print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n MEMORY: " + str(self.memory)+ "\n ---")
             picker(op)
-            #print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n ---------------")
+            print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n MEMORY: " + str(self.memory) + "\n -------------------------")
 
 
 
 aspenVM = VM([
 
-    ["ICONST", "5", "ICONST", "4", "IL", "BRT", "0"],
+    ["ICONST", "5", "GSTORE", "4", "POP", "GLOAD", "4", "HALT"],
 
-    -1, -1, 4, 12, 2])  # code, IP, SP, FP, data, datasize
+    -1, -1, 4, 12, 12])  # code, IP, SP, FP, data, datasize
 
 aspenVM.cpu()
 
