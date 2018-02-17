@@ -1,3 +1,13 @@
+#Its the seventeenth of february, all my notes are gone ;(
+#I wanted to work on branching at school, and copied the github code into repl.it
+#but I took it from the organization repo, so the notes werent there
+#and when I pasted it back into my personal file the notes were gone and I didnt notice until it was too late to ctrl-z it all back
+#oh, farewell, two days of comments, you will be missed
+#anyway I have if statements now
+#branch if true and branch if false
+#pretty snazzy if I do say so myself
+
+
 class VM():  # Where the magic happens
     def __init__(self, args):  # args is an array of: code, ip, sp, fp, data, datasize
         self.ip = args[1]
@@ -9,6 +19,7 @@ class VM():  # Where the magic happens
         self.code = args[0]
 
         self.stack = []
+        self.memory = [None] * self.datasize
 
     def cpu(self):
         # Starting the list of all the operations =============
@@ -44,8 +55,7 @@ class VM():  # Where the magic happens
             self.stack.append(quotient)
 
         def iSub():
-            difference = int(self.stack[-1]) - int(
-                self.stack[-2])  # subtract the lower item in the stack from the higher item!
+            difference = int(self.stack[-1]) - int(self.stack[-2])  # subtract the lower item in the stack from the higher item!
             pop()
             pop()
             self.stack.append(difference)
@@ -64,6 +74,31 @@ class VM():  # Where the magic happens
             addr = int(self.code[self.ip])
             self.ip = addr - 1
 
+        def isLessThan():
+            bul = self.stack[-1] < self.stack[-2]
+            self.stack.append(bul)
+
+        def isEqualTo():
+            bul = self.stack[-1]==self.stack[-2]
+            self.stack.append(bul)
+
+        def isGreaterThan():
+            bul = self.stack[-1] > self.stack[-2]
+            self.stack.append(bul)
+
+        def branchIfTrue():
+            if self.stack[-1]:
+                branch()
+            else:
+                self.ip += 1
+
+        def branchIfFalse():
+            if not self.stack[-1]:
+                branch()
+            else:
+                self.ip += 1
+
+
         decoder = {
             "HALT": halt,
             "POP": pop,
@@ -74,8 +109,12 @@ class VM():  # Where the magic happens
             "IDIV": iDiv,
             "IMOD": iMod,
             "PRINT": cout,
-
             "BR": branch,
+            "IL": isLessThan,
+            "IQ": isEqualTo,
+            "IG": isGreaterThan,
+            "BRT": branchIfTrue,
+            "BRF": branchIfFalse,
         }
 
         # Ending the operations list ====================
@@ -88,13 +127,15 @@ class VM():  # Where the magic happens
             self.ip += 1
 
             op = self.code[self.ip]
-            print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack))
+            #print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n ---")
             picker(op)
+            #print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n ---------------")
+
 
 
 aspenVM = VM([
 
-    ["ICONST", "5", "PRINT", "POP", "BR", "0"],
+    ["ICONST", "5", "ICONST", "4", "IL", "BRT", "0"],
 
     -1, -1, 4, 12, 2])  # code, IP, SP, FP, data, datasize
 
