@@ -19,7 +19,7 @@ class VM():  # Where the magic happens
 
         self.data = args[4]
         self.datasize = args[5]
-        self.code = args[0]
+        self.code = args[0].split(" ")
 
         self.stack = []
         self.memory = [None] * self.datasize
@@ -141,15 +141,15 @@ class VM():  # Where the magic happens
             self.ip += 1
 
             op = self.code[self.ip]
-            print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n MEMORY: " + str(self.memory)+ "\n ---")
+            #print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n MEMORY: " + str(self.memory)+ "\n ---")
             picker(op)
-            print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n MEMORY: " + str(self.memory) + "\n -------------------------")
+            #print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n MEMORY: " + str(self.memory) + "\n -------------------------")
 
 
 
 aspenVM = VM([
 
-    ["ICONST", "5", "GSTORE", "4", "POP", "GLOAD", "4", "HALT"],
+    'ICONST 10 ICONST 25 IMULT ICONST 5 IADD PRINT',
 
     -1, -1, 4, 12, 12])  # code, IP, SP, FP, data, datasize
 
