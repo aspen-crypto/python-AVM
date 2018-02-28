@@ -10,6 +10,11 @@
 #are those variables I see?
 #Memory? In the distance?
 #Why yes they are, young traveller.
+#Its the 27th of feburary and I'm ready to do hash functions
+#If the NSA is watching me implement this algorithm they invented... I hope y'all feel unappreciated
+
+
+import hashlib
 
 class VM():  # Where the magic happens
     def __init__(self, args):  # args is an array of: code, ip, sp, fp, data, datasize
@@ -111,6 +116,13 @@ class VM():  # Where the magic happens
             addr = int(self.code[self.ip])
             self.stack.append(self.memory[addr])
 
+        def sha512():
+            input = self.stack[-1]
+            newHash = hashlib.sha512(input.encode(encoding = 'UTF-8')).digest()
+            pop()
+            self.stack.append(newHash)
+
+
         decoder = {
             "HALT": halt,
             "POP": pop,
@@ -129,6 +141,7 @@ class VM():  # Where the magic happens
             "BRF": branchIfFalse,
             "GSTORE": gStore,
             "GLOAD": gLoad,
+            "SHA": sha512
         }
 
         # Ending the operations list ====================
@@ -141,15 +154,15 @@ class VM():  # Where the magic happens
             self.ip += 1
 
             op = self.code[self.ip]
-            #print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n MEMORY: " + str(self.memory)+ "\n ---")
+            print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n MEMORY: " + str(self.memory)+ "\n ---")
             picker(op)
-            #print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n MEMORY: " + str(self.memory) + "\n -------------------------")
+            print("OPCODE: " + str(op) + "\n IP: " + str(self.ip) + "\n STACK: " + str(self.stack) + "\n MEMORY: " + str(self.memory) + "\n -------------------------")
 
 
 
 aspenVM = VM([
 
-    'ICONST 10 ICONST 25 IMULT ICONST 5 IADD PRINT',
+    'ICONST 5 SHA PRINT POP HALT',
 
     -1, -1, 4, 12, 12])  # code, IP, SP, FP, data, datasize
 
