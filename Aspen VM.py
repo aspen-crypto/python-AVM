@@ -1,23 +1,7 @@
-#Its the seventeenth of february, all my notes are gone ;(
-#I wanted to work on branching at school, and copied the github code into repl.it
-#but I took it from the organization repo, so the notes werent there
-#and when I pasted it back into my personal file the notes were gone and I didnt notice until it was too late to ctrl-z it all back
-#oh, farewell, two days of comments, you will be missed
-#anyway I have if statements now
-#branch if true and branch if false
-#pretty snazzy if I do say so myself
-#OOOO BABY
-#are those variables I see?
-#Memory? In the distance?
-#Why yes they are, young traveller.
-#Its the 27th of feburary and I'm ready to do hash functions
-#If the NSA is watching me implement this algorithm they invented... I hope y'all feel unappreciated
-
-
 import hashlib
 
-class VM():  # Where the magic happens
-    def __init__(self, args):  # args is an array of: code, ip, sp, fp, data, datasize
+class VM(): #Where the magic happens
+    def __init__(self, args): #args is an array of: code, ip, sp, fp, data, datasize
         self.ip = args[1]
         self.sp = args[2]
         self.fp = args[3]
